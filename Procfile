@@ -1,1 +1,1 @@
-web: cargo build && cargo run
+web: /workspaces/bin/rust-actix-diesel-connect
