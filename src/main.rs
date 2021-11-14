@@ -1,34 +1,29 @@
-#[macro_use]
-extern crate diesel;
-
-use actix_web::{dev::ServiceRequest, web, App, Error, HttpServer};
-use diesel::prelude::*;
-use diesel::r2d2::{self, ConnectionManager};
+use actix_web::{ web, App, HttpServer};
+use dotenv::dotenv;
+use std::env;
 
 mod controllers;
 // mod errors;
 // mod models;
 // mod schema;
+mod postgres;
 
-pub type Pool = r2d2::Pool<ConnectionManager<PgConnection>>;
-
-#[actix_rt::main]
+#[actix_web::main]
 async fn main() -> std::io::Result<()> {
-    dotenv::dotenv().ok();
-    std::env::set_var("RUST_LOG", "actix_web=debug");
+    dotenv().ok();
+    env::set_var("RUST_LOG", "actix_web=debug");
+    let host = env::var("HOST").expect("Host not set");
+    let port = env::var("PORT").expect("Port not set");
 
-    let database = std::env::var("DATABASE_URL").expect("Missing Database URI");
-
-    let manager = ConnectionManager::<PgConnection>::new(database);
-
-    let pool: Pool = r2d2::Pool::Builder().build(manager).expect("Failed database connection");
-    
+    let pool = postgres::get_pool();
+ 
     HttpServer::new(move || {
         App::new()
-            .route("/books", web::get().to(controllers::get_all_books))
-            .route("/books", web::post().to(controllers::create_new_book))
+        .data(pool.clone())
+            .route("/", web::get().to(controllers::get_all_books))
+            .route("/create-books", web::post().to(controllers::create_new_book))
     })
-    .bind("127.0.0.1:5003")?
+    .bind(format!("{}:{}", host, port))?
     .run()
     .await
 }
