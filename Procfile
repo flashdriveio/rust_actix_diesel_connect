@@ -1,1 +1,1 @@
-web: /workspaces/bin/rust-actix-diesel-connect
+web: /workspace/bin/rust-actix-diesel-connect
