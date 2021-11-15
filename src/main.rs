@@ -1,12 +1,12 @@
-use actix_web::{ web, App, HttpServer};
+use actix_web::{ web, App, HttpServer, HttpResponse, Responder};
 use dotenv::dotenv;
 use std::env;
 
-mod controllers;
-// mod errors;
-// mod models;
-// mod schema;
 mod postgres;
+
+async fn home() -> impl Responder {
+    HttpResponse::Ok().body("PostgreSQL connected")
+}
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
@@ -20,8 +20,8 @@ async fn main() -> std::io::Result<()> {
     HttpServer::new(move || {
         App::new()
         .data(pool.clone())
-            .route("/", web::get().to(controllers::get_all_books))
-            .route("/create-books", web::post().to(controllers::create_new_book))
+            .route("/", web::get().to(home))
+            
     })
     .bind(format!("{}:{}", host, port))?
     .run()
