@@ -1,4 +1,4 @@
-<p align="center"><a href="https://devcenter.flashdrive.io/rust/"><img align="center" style="width:320px" src="https://devcenter.flashdrive.io/wp-content/uploads/2020/10/cropped-flashdrive-full-logo-2.png"/></a></p><br/>
+<p align="center"><a href="https://devcenter.qoddi.com/rust/"><img align="center" style="width:320px" src="https://qoddi.com/assets/images/temp/logo.png"/></a></p><br/>
 
 # Rust with Postgres connection
 
