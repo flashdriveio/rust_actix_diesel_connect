@@ -2,5 +2,5 @@
 
 # Rust with Postgres connection
 
-This repository shows the connection of a Rust app with a Postgres database on FlashDrive.
-Full tutorial is available here : https://blog.flashdrive.io/connect-to-postgres-from-rust-actix-with-diesel/
+This repository shows the connection of a Rust app with a Postgres database on Qoddi.
+Full tutorial is available here : https://blog.qoddi.com/connect-to-postgres-from-rust-actix-with-diesel/
